@@ -7,7 +7,7 @@
 
 ## Overview
 
-HF-Bench is a NeurIPS-style reproducible benchmark comparing tabular deep learning models against gradient-boosted trees for **30-day hospital readmission prediction after heart failure admission**. The benchmark evaluates six model families with:
+HF-Bench is a reproducible benchmark comparing tabular deep learning models against gradient-boosted trees for **30-day hospital readmission prediction after heart failure admission**. The benchmark evaluates six model families with:
 
 - Rigorous temporal train/val/test splitting
 - Hyperparameter tuning via Optuna
