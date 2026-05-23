@@ -1,0 +1,53 @@
+## HF-Bench default configuration
+
+data:
+  raw_path: data/raw/demo_hf.csv
+  interim_dir: data/interim
+  processed_dir: data/processed
+  label_col: readmit_30d
+  id_cols:
+    - subject_id
+    - hadm_id
+  time_col: admittime
+  subgroup_cols:
+    - sex
+    - race
+    - age_group
+
+split:
+  train_frac: 0.70
+  val_frac: 0.15
+  # test is remainder
+
+preprocessing:
+  numeric_impute_strategy: median
+  add_indicator: true
+  categorical_impute_strategy: most_frequent
+  smote: true
+  smote_random_state: 42
+
+training:
+  seeds: [42, 123, 7, 0, 256]
+  n_trials: 100
+  timeout: null          # seconds; null = no timeout
+  metric: auroc
+  direction: maximize
+
+evaluation:
+  ece_n_bins: 10
+  threshold_fixed: 0.5
+  target_specificity: 0.80
+  bootstrap_n: 1000
+  bootstrap_seed: 42
+
+output:
+  results_dir: results
+  metrics_dir: results/metrics
+  predictions_dir: results/predictions
+  studies_dir: results/studies
+  figures_dir: results/figures
+
+demo:
+  n_rows: 5000
+  random_seed: 42
+  positive_rate_approx: 0.21

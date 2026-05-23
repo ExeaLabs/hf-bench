@@ -1,0 +1,29 @@
+model: mlp
+early_stopping_patience: 15
+max_epochs: 200
+
+hyperparameter_search:
+  hidden_dim:
+    type: categorical
+    choices: [64, 128, 256, 512]
+  num_layers:
+    type: int
+    low: 2
+    high: 4
+  dropout:
+    type: float
+    low: 0.0
+    high: 0.5
+  lr:
+    type: float
+    low: 1.0e-4
+    high: 1.0e-2
+    log: true
+  weight_decay:
+    type: float
+    low: 1.0e-6
+    high: 1.0e-2
+    log: true
+  batch_size:
+    type: categorical
+    choices: [128, 256, 512]
