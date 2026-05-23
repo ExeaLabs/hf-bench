@@ -54,3 +54,5 @@ htmlcov/
 *.pkl
 # Keep .gitkeep files
 !**/.gitkeep
+
+.claude/
