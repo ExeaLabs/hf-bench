@@ -7,6 +7,8 @@ from typing import Callable, Dict, List
 import numpy as np
 import pandas as pd
 
+NON_METRIC_COLS = {"seed", "n", "threshold", "t0.5_threshold", "t80sp_threshold"}
+
 
 def bootstrap_metric(
     y_true: np.ndarray,
@@ -56,6 +58,8 @@ def aggregate_seed_results(records: List[Dict]) -> pd.DataFrame:
 
     rows = []
     for col in numeric_cols:
+        if col in NON_METRIC_COLS:
+            continue
         vals = df[col].dropna().values
         n = len(vals)
         if n == 0:

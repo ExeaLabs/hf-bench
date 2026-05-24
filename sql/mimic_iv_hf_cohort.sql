@@ -159,8 +159,7 @@ labs AS (
         50963,  -- NT-proBNP — verify itemid
         50912,  -- Creatinine (mg/dL)
         50983,  -- Sodium (mEq/L)
-        51222,  -- Hemoglobin (g/dL)
-        50806   -- Chloride — placeholder; replace with eGFR source
+        51222   -- Hemoglobin (g/dL)
     )
       AND le.valuenum IS NOT NULL
       AND le.valuenum > 0

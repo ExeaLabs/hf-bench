@@ -1,5 +1,4 @@
 model: xgboost
-use_label_encoder: false
 eval_metric: logloss
 n_jobs: -1
 

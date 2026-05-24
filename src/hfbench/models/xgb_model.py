@@ -45,7 +45,6 @@ class XGBoostModel(BaseModel):
             min_child_weight=params.get("min_child_weight", 5),
             scale_pos_weight=scale_pos_weight,
             eval_metric="logloss",
-            use_label_encoder=False,
             random_state=self.seed,
             n_jobs=-1,
         )

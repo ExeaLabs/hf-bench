@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import logging
 from typing import Dict, Optional, Tuple
 
 import numpy as np
@@ -14,6 +15,8 @@ from sklearn.metrics import (
 )
 
 from hfbench.evaluation.calibration import expected_calibration_error
+
+logger = logging.getLogger(__name__)
 
 
 def threshold_metrics(
@@ -48,7 +51,13 @@ def find_threshold_at_specificity(
     # Find thresholds where specificity >= target
     mask = specificities >= target_specificity
     if not mask.any():
-        return thresholds[-1]
+        logger.warning(
+            "No threshold achieves target specificity %.2f; "
+            "falling back to most conservative threshold.",
+            target_specificity,
+        )
+        # roc_curve thresholds are descending; [0] is the most conservative
+        return float(thresholds[0])
     # Among those, return the one with highest sensitivity (lowest threshold)
     idx = np.where(mask)[0]
     return float(thresholds[idx[np.argmax(tpr[idx])]])

@@ -59,15 +59,12 @@ def subgroup_metrics(
 
 
 def compute_fairness_summary(
-    y_true: np.ndarray,
-    y_pred: np.ndarray,
     subgroup_df: pd.DataFrame,
 ) -> Dict:
     """Compute aggregate fairness metrics from per-group table.
 
     Parameters
     ----------
-    y_true, y_pred: overall labels and predictions.
     subgroup_df: output of subgroup_metrics().
 
     Returns
@@ -114,6 +111,6 @@ def run_fairness_evaluation(
             continue
         groups = df_meta[col].values
         sg_df = subgroup_metrics(y_true, y_pred, groups, threshold=threshold, ece_n_bins=ece_n_bins)
-        summary = compute_fairness_summary(y_true, y_pred, sg_df)
+        summary = compute_fairness_summary(sg_df)
         results[col] = {"per_group": sg_df, "summary": summary}
     return results

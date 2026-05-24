@@ -31,9 +31,7 @@ def train_best_model(
     if X_val is not None and hasattr(model, "patience"):
         model.fit(X_train, y_train, X_val=X_val, y_val=y_val)
     elif X_val is not None:
-        X_all = np.concatenate([X_train, X_val], axis=0)
-        y_all = np.concatenate([y_train, y_val], axis=0)
-        model.fit(X_all, y_all)
+        model.fit(X_train, y_train, X_val=X_val, y_val=y_val)
     else:
         model.fit(X_train, y_train)
 

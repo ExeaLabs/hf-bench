@@ -90,6 +90,17 @@ def test_lightgbm_pipeline(tiny_splits):
     assert probs.shape == (len(y_test),)
 
 
+def test_ft_transformer_pipeline(tiny_splits):
+    pytest.importorskip("torch")
+    from hfbench.models.ft_transformer import FTTransformerModel
+    X_train, y_train, X_val, y_val, X_test, y_test = tiny_splits
+    model = FTTransformerModel(seed=42, d_token=32, n_layers=1, n_heads=4, max_epochs=3, patience=2)
+    model.fit(X_train, y_train, X_val=X_val, y_val=y_val)
+    probs = model.predict_proba(X_test)
+    assert probs.shape == (len(y_test),)
+    assert ((probs >= 0) & (probs <= 1)).all()
+
+
 def test_full_metrics(tiny_splits):
     X_train, y_train, X_val, y_val, X_test, y_test = tiny_splits
     model = LogisticRegressionModel(seed=42)

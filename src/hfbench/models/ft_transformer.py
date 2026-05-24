@@ -36,8 +36,12 @@ class _FTTransformerNet:
         class Net(nn.Module):
             def __init__(self):
                 super().__init__()
-                # Project each feature to d_token; CLS token
-                self.feat_proj = nn.Linear(in_features, d_token)
+                # Per-feature tokenizer: each scalar feature gets its own token
+                # via element-wise embedding tokens[b,j,:] = x[b,j] * W[j,:] + b[j,:]
+                self.W = nn.Parameter(torch.empty(in_features, d_token))
+                self.b = nn.Parameter(torch.empty(in_features, d_token))
+                nn.init.trunc_normal_(self.W, std=0.02)
+                nn.init.trunc_normal_(self.b, std=0.02)
                 self.cls_token = nn.Parameter(torch.zeros(1, 1, d_token))
                 nn.init.trunc_normal_(self.cls_token, std=0.02)
 
@@ -54,11 +58,11 @@ class _FTTransformerNet:
                 self.head = nn.Linear(d_token, 1)
 
             def forward(self, x):
-                # x: (B, F)  ->  (B, 1, d_token)  via linear projection
-                tokens = self.feat_proj(x).unsqueeze(1)  # (B, 1, d)
-                cls = self.cls_token.expand(x.size(0), -1, -1)  # (B, 1, d)
-                seq = torch.cat([cls, tokens], dim=1)           # (B, 2, d)
-                out = self.transformer(seq)                      # (B, 2, d)
+                # x: (B, F)  ->  (B, F, d_token)  per-feature tokenization
+                tokens = x.unsqueeze(-1) * self.W + self.b       # (B, F, d)
+                cls = self.cls_token.expand(x.size(0), -1, -1)   # (B, 1, d)
+                seq = torch.cat([cls, tokens], dim=1)            # (B, F+1, d)
+                out = self.transformer(seq)                      # (B, F+1, d)
                 return self.head(out[:, 0, :]).squeeze(-1)       # (B,)
 
         return Net()

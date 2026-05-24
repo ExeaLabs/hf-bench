@@ -23,31 +23,15 @@ class LogisticRegressionModel(BaseModel):
         penalty = kwargs.get("penalty", "l2")
         C = kwargs.get("C", 1.0)
 
-        import sklearn
-        sklearn_major_minor = tuple(int(x) for x in sklearn.__version__.split(".")[:2])
-
-        if sklearn_major_minor >= (1, 8):
-            # penalty param deprecated in sklearn 1.8; use l1_ratio instead
-            l1_ratio = 1.0 if penalty == "l1" else 0.0
-            solver = "saga"
-            return LogisticRegression(
-                l1_ratio=l1_ratio,
-                C=C,
-                solver=solver,
-                class_weight="balanced",
-                max_iter=2000,
-                random_state=self.seed,
-            )
-        else:
-            solver = "saga" if penalty == "l1" else "lbfgs"
-            return LogisticRegression(
-                penalty=penalty,
-                C=C,
-                solver=solver,
-                class_weight="balanced",
-                max_iter=2000,
-                random_state=self.seed,
-            )
+        solver = "saga" if penalty == "l1" else "lbfgs"
+        return LogisticRegression(
+            penalty=penalty,
+            C=C,
+            solver=solver,
+            class_weight="balanced",
+            max_iter=2000,
+            random_state=self.seed,
+        )
 
     def fit(
         self,
