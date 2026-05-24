@@ -29,4 +29,4 @@ hyperparameter_search:
     log: true
   batch_size:
     type: categorical
-    choices: [128, 256, 512]
+    choices: [2048, 8192, 16384, 32768]

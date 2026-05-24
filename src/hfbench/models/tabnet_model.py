@@ -34,7 +34,7 @@ class TabNetModel(BaseModel):
         gamma: float = 1.3,
         lambda_sparse: float = 1e-4,
         lr: float = 2e-2,
-        batch_size: int = 1024,
+        batch_size: int = 16384,
         max_epochs: int = 200,
         patience: int = 15,
         **kwargs,

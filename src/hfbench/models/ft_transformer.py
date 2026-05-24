@@ -80,7 +80,7 @@ class FTTransformerModel(BaseModel):
         dropout: float = 0.1,
         lr: float = 1e-4,
         weight_decay: float = 1e-5,
-        batch_size: int = 256,
+        batch_size: int = 8192,
         max_epochs: int = 200,
         patience: int = 15,
         **kwargs,

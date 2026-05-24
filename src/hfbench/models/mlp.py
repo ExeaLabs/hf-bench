@@ -53,7 +53,7 @@ class MLPModel(BaseModel):
         dropout: float = 0.2,
         lr: float = 1e-3,
         weight_decay: float = 1e-4,
-        batch_size: int = 256,
+        batch_size: int = 16384,
         max_epochs: int = 200,
         patience: int = 15,
         **kwargs,
