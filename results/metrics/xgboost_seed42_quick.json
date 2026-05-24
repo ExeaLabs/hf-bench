@@ -1,0 +1,15 @@
+{
+  "model": "xgboost",
+  "seed": 42,
+  "test_auroc": 0.5958126840479782,
+  "best_params": {
+    "max_depth": 7,
+    "learning_rate": 0.09078835431980901,
+    "n_estimators": 118,
+    "subsample": 0.9849549260809971,
+    "colsample_bytree": 0.9162213204002109,
+    "reg_alpha": 8.148018307012941e-07,
+    "reg_lambda": 4.329370014459266e-07,
+    "min_child_weight": 4
+  }
+}

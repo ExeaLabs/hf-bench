@@ -1,0 +1,9 @@
+{
+  "model": "logistic_regression",
+  "seed": 42,
+  "test_auroc": 0.6474807871866695,
+  "best_params": {
+    "C": 0.017670169402947963,
+    "penalty": "l1"
+  }
+}
