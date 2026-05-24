@@ -1,6 +1,6 @@
 # HF-Bench: Tabular Deep Learning vs Gradient-Boosted Trees for 30-Day Heart Failure Readmission
 
-> **⚠️ RESEARCH CODE — NOT FOR CLINICAL USE**
+> **RESEARCH CODE — NOT FOR CLINICAL USE**
 > This benchmark is intended solely for research and educational purposes. Outputs are generated from synthetic demo data. Do not use for clinical decision-making, patient care, or deployment.
 
 ---
