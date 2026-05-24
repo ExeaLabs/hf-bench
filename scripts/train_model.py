@@ -131,7 +131,7 @@ def main():
     # Save predictions
     y_pred_test = model.predict_proba(X_test)
     meta_cols = ["subject_id", "hadm_id"] + [
-        c for c in SUBGROUP_COLS + ["age_group"] if c in test.columns
+        c for c in dict.fromkeys(SUBGROUP_COLS) if c in test.columns
     ]
     test_meta = test[meta_cols].reset_index(drop=True)
 
